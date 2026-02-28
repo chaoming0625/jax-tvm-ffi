@@ -57,7 +57,7 @@ _mod = tvm_ffi.cpp.load_inline(
         void add_scalar_f64(tvm::ffi::Any eps_any,
                             tvm::ffi::TensorView input,
                             tvm::ffi::TensorView output) {
-            double eps = static_cast<double>(eps_any);
+            double eps = eps_any.cast<double>();
             DLDataType f64_dtype{kDLFloat, 64, 1};
             TVM_FFI_ICHECK(input.dtype() == f64_dtype) << "Expected float64 input";
             TVM_FFI_ICHECK(input.size(0) == output.size(0)) << "Shape mismatch";
@@ -114,10 +114,10 @@ _mod = tvm_ffi.cpp.load_inline(
 
 jax_tvm_ffi.register_ffi_target("f64.validate_dtype", _mod.validate_f64_dtype, platform="cpu")
 jax_tvm_ffi.register_ffi_target(
-    "f64.add_scalar", _mod.add_scalar_f64, ["attrs.eps", "args"], platform="cpu"
+    "f64.add_scalar", _mod.add_scalar_f64, ["attrs.eps", "args", "rets"], platform="cpu"
 )
 jax_tvm_ffi.register_ffi_target(
-    "f64.dot_with_attr_array", _mod.dot_with_attr_array, ["attrs.weights", "args"], platform="cpu"
+    "f64.dot_with_attr_array", _mod.dot_with_attr_array, ["attrs.weights", "args", "rets"], platform="cpu"
 )
 jax_tvm_ffi.register_ffi_target("f64.validate_2d", _mod.validate_f64_2d, platform="cpu")
 
