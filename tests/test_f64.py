@@ -117,7 +117,10 @@ jax_tvm_ffi.register_ffi_target(
     "f64.add_scalar", _mod.add_scalar_f64, ["attrs.eps", "args", "rets"], platform="cpu"
 )
 jax_tvm_ffi.register_ffi_target(
-    "f64.dot_with_attr_array", _mod.dot_with_attr_array, ["attrs.weights", "args", "rets"], platform="cpu"
+    "f64.dot_with_attr_array",
+    _mod.dot_with_attr_array,
+    ["attrs.weights", "args", "rets"],
+    platform="cpu",
 )
 jax_tvm_ffi.register_ffi_target("f64.validate_2d", _mod.validate_f64_2d, platform="cpu")
 
